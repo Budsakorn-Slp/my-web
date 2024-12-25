@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuSu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000000;
+            font-family: 'Poppins', sans-serif;
+            flex-direction: column;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #ff66b2;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .heart, .peace {
+            font-size: 45px;
+            color: #ff66b2;
+            animation: popAnimation 1.5s infinite ease-in-out;
+        }
+
+        .hearts {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        @keyframes popAnimation {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .peace {
+            animation: waveAnimation 1.5s infinite ease-in-out;
+        }
+
+        @keyframes waveAnimation {
+            0% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(10deg);
+            }
+            50% {
+                transform: rotate(0deg);
+            }
+            75% {
+                transform: rotate(-10deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>ตั้งใจทำงานนะปั้น</h2>
+    <div class="hearts">
+        <span class="heart">❤️</span>
+        <span class="peace">✌️</span>
+    </div>
+</body>
+</html>
