@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuSu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Foryou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -14,69 +14,174 @@
             margin: 0;
             background-color: #000000;
             font-family: 'Poppins', sans-serif;
-            flex-direction: column;
+            overflow: hidden;
+            position: relative;
         }
 
-        h2 {
-            font-size: 28px;
-            color: #ff66b2;
+        .container {
             text-align: center;
-            margin-bottom: 20px;
-            font-weight: 600;
+            position: relative;
+            cursor: pointer;
         }
 
-        .heart, .peace {
-            font-size: 45px;
-            color: #ff66b2;
-            animation: popAnimation 1.5s infinite ease-in-out;
+        .heart {
+            font-size: 100px;
+            animation: bounce 1.5s infinite ease-in-out;
+            color: #ffb6c1;
         }
 
-        .hearts {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        @keyframes popAnimation {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.2);
-            }
-            100% {
-                transform: scale(1);
-            }
+        .message {
+            font-size: 30px;
+            font-family: 'Fredoka One', cursive;
+            color: transparent;
+            margin-top: 20px;
+            display: none;
+            animation: gradientAnimation 3s infinite;
+            padding: 10px 20px;
+            border: 2px solid #424040ab;
+            border-radius: 8px;
+            color:#fff
         }
 
         .peace {
-            animation: waveAnimation 1.5s infinite ease-in-out;
+            font-size: 40px;
+            color: #ffffff;
+            margin-top: 10px;
+            display: none;
+            animation: wave 1.5s infinite ease-in-out, shake 0.5s infinite alternate;
         }
 
-        @keyframes waveAnimation {
+        .click-hint {
+            font-size: 18px;
+            color: #ffb6c1;
+            margin-top: 10px;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes flyAway {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-300px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(20deg);
+            }
+        }
+
+        @keyframes shake {
             0% {
                 transform: rotate(0deg);
             }
-            25% {
-                transform: rotate(10deg);
+            100% {
+                transform: rotate(15deg);
             }
-            50% {
-                transform: rotate(0deg);
-            }
-            75% {
-                transform: rotate(-10deg);
+        }
+
+        @keyframes shootingStar {
+            0% {
+                transform: translateX(100vw) translateY(-50vh);
+                opacity: 1;
             }
             100% {
-                transform: rotate(0deg);
+                transform: translateX(-100vw) translateY(50vh);
+                opacity: 0;
             }
+        }
+
+        .shooting-star {
+            width: 5px;
+            height: 5px;
+            background: linear-gradient(45deg, #fff, rgba(255, 255, 255, 0));
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff;
+            animation: shootingStar 2s linear infinite;
+        }
+
+        .open .heart {
+            animation: flyAway 1s forwards;
+        }
+
+        .open .click-hint {
+            display: none;
+        }
+
+        .open .message,
+        .open .peace {
+            display: block;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .open .cat {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <h2>ตั้งใจทำงานนะปั้น</h2>
-    <div class="hearts">
-        <span class="heart">❤️</span>
-        <span class="peace">✌️</span>
+    <div class="container" onclick="openGift()">
+        <div class="heart">💖</div>
+        <div class="click-hint">Click!</div>
+        <div class="message">ตั้งใจทำงานน้าา ปั้น</div>
     </div>
+
+    <script>
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            star.style.top = Math.random() * window.innerHeight + 'px';
+            star.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(star);
+
+            setTimeout(() => {
+                star.remove();
+            }, 2000);
+        }
+
+        function openGift() {
+            const container = document.querySelector('.container');
+            container.classList.add('open');
+
+            setTimeout(() => {
+                const heart = document.querySelector('.heart');
+                if (heart) heart.remove();
+            }, 1000);
+
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createShootingStar, i * 100);
+            }
+        }
+    </script>
 </body>
 </html>
